@@ -6,11 +6,31 @@ class Solution : SolutionBase
 
     protected override string SolvePartOne()
     {
-        return "";
+        var lines = Input.SplitByNewline();
+        return lines.Select(line =>
+        {
+            var nums = line.Split(' ', '\t').Select(num => int.Parse(num)).Order();
+            return nums.Last() - nums.First();
+        }).Sum().ToString();
     }
 
     protected override string SolvePartTwo()
     {
-        return "";
+        var lines = Input.SplitByNewline();
+        return lines.Select(line =>
+        {
+            var nums = line.Split(' ', '\t').Select(num => int.Parse(num)).ToArray();
+            for (int i = 0; i < nums.Count(); i++)
+            {
+                for (int j = 0; j < nums.Count(); j++)
+                {
+                    if (i != j && nums[i] % nums[j] == 0)
+                    {
+                        return nums[i] / nums[j];
+                    }
+                }
+            }
+            throw new Exception("wrong");
+        }).Sum().ToString();
     }
 }
